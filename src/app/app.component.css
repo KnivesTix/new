@@ -26,21 +26,20 @@ h5{
 .btn{
   color:white;
 }
-
+"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"
 */
 
 
-
+/*
 
 .header {
   flex: 0 1 auto;
- /* background:url(../assets/img/header-gradient.png) left bottom repeat-x;*/
+
 
   align-items: center;
-/*  color: #fff;*/
+
   justify-content: space-between;
-  /*padding: 0 1em;*/
- /* background: #3261af ;*/
+
   background: #fff;
   padding-bottom: 1rem;
 }
@@ -63,9 +62,9 @@ h5{
 }
 
 .main{
- /* background: url(../assets/img/body_bg.jpg) no-repeat center/cover;*/
+  background: url(../assets/img/body_bg.jpg) no-repeat center/cover;
   border-top: 1px solid #0056b3;
-  /*height: 100%;*/
+
   flex:1 1 auto;
 }
 
@@ -86,7 +85,7 @@ ul li a:hover{
 
 footer .footer__menu{
   border-top: 1px solid #0056b3;
-  /*padding: 1rem;*/
+
   width: 100%;
   height: 70px;
   display: flex;
@@ -112,11 +111,7 @@ footer a {
 .sber_banner{
   width: 50%;
 }
-/*
-img {
-  max-width: 100%;
-  height: auto;
-}*/
+
 
 .footer span{
   font-size: 0.75rem;
@@ -162,7 +157,67 @@ img {
 
   }
 }
+*/
 
+.header {
+  min-width: 960px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #3261af;
+}
 
+.header-logo {
+  padding-left: 50px;
+}
+.user-navigation {
+  padding-right: 50px;
+  display: flex;
+}
+.user-items{
+  padding: 12px;
+}
+.user-navigation a:hover {
+  text-decoration: underline;
+  color: #1b1e21;
+}
+.user-navigation a:active {
+  text-decoration: underline;
+  color: #1b1e21;
 
+}
+.user-navigation li:active{
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  border-radius: 4px;
 
+  outline: 0;
+}
+.container{
+  flex: 1 0 auto;
+  background: url(../assets/img/body_bg.jpg) no-repeat center/cover;
+}
+
+.footer-navigation {
+  border-top: 1px solid #3261af;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  font-size: 14px;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0;
+
+}
+.footer-navigation li:hover{
+  text-decoration: underline;
+}
+
+.footer-navigation a{
+
+  color: #333;
+}
+.org {
+  font-size: 10px;
+}
