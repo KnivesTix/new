@@ -1,0 +1,79 @@
+.btn{
+  background: #0056b3;
+  border-color: #0056b3;
+  color: #fff;
+}
+
+.btn_group{
+  width: 200px;
+}
+.qr{
+  margin-left: auto;
+}
+a{
+  color: #fff;
+}
+.sber_link{
+  color: #0056b3;
+}
+table{
+  font-size: 0.85em;
+}
+.container{
+  font-size: 1em;
+
+}
+.info{
+  font-size: 1rem;
+}
+.sum_for_pay{
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #fff;
+}
+span{
+  text-align: left;
+}
+@media (max-width: 760px) {
+ table{
+   font-size: 14px;
+ }
+
+  tr:nth-child(even){
+    background-color: #f0f4c3
+  }
+  .test table thead {
+    display: none;
+  }
+  .test table tr {
+    border-bottom: 1px solid #000;
+    display: block;
+
+  }
+  .test table td {
+
+    display: flex;
+    justify-content: space-between;
+
+    align-items: center;
+    font-size: 12px;
+  }
+  .sup{
+    word-break: break-all;
+  }
+  .srv{
+    display: flex;
+  }
+  .test table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 20px;
+  }
+  .test table input{
+    width: 50%;
+  }
+
+  .container{
+    font-size: 0.85rem;
+  }
+}

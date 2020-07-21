@@ -1,0 +1,22 @@
+
+  <table class="table table-hover table-bordered table-sm table-trf">
+    <thead class="text-center">
+    <tr>
+
+      <th scope="col">Наименование услуги</th>
+      <th scope="col">Наименование поставщика</th>
+      <th scope="col">Тариф</th>
+      <th scope="col">Дата</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let doc of trfArray">
+      <td>{{doc.srv_name}}</td>
+      <td>{{doc.sup_name}}</td>
+      <td class="trf">{{doc.tariff}}</td>
+      <td class="date">{{doc.tariff_date}}</td>
+    </tr>
+    </tbody>
+  </table>
+

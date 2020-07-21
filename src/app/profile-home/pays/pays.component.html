@@ -1,0 +1,35 @@
+<div class="d-flex flex-column">
+  <div class="test">
+<!--<div class="d-flex flex-fill" >-->
+  <table id="pays" class="table table-hover table-bordered table-striped table-sm text-center">
+    <thead class="text-center">
+    <tr>
+      <th scope="col">Дата оплаты</th>
+      <th scope="col">Номер квитанции</th>
+      <th scope="col">Сумма</th>
+      <th scope="col">Идентификатор платежа</th>
+      <th scope="col">Эл. квитанция</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let doc of paysArray | paginate: { itemsPerPage: count, currentPage: p } ">
+      <td data-label="Дата оплаты">{{doc.pay_date}}</td>
+      <td data-label="Номер квитанции">{{doc.pay_npp}}</td>
+      <td data-label="Сумма" style="text-align: right">{{doc.pay_sum}}</td>
+      <td data-label="Идентификатор платежа">{{doc.pay_id}}</td>
+      <td data-label="Эл. квитанция"> <a href="http://217.13.217.252:7001/fop/resources/kun/pdf/{{currentAcc}}/{{doc.pay_id}}" target="_blank">{{doc.pay_id}}.pdf <!--<img class="notice" src="../assets/img/pdf_format.svg" style="width: 10%" />--></a>
+
+        <!--(click)="getPayDoc(doc.pay_id)"-->
+        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="text-right">
+    <pagination-controls (pageChange)="p = $event"  autoHide = "true" previousLabel = "Назад"
+                         nextLabel = "Вперед"></pagination-controls>
+  </div>
+</div>
+</div>
+

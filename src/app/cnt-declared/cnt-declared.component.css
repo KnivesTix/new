@@ -1,0 +1,64 @@
+/*.btn{
+  background: #0056b3;
+  border-color: #0056b3;
+  color: #fff;
+}
+*/
+
+.test {
+  min-width: 320px;
+  max-width: 100%;
+}
+
+.sum_pay{
+  color: red;
+  font-weight: 600;
+}
+.reset{
+  margin-left: auto;
+}
+.table{
+  background-color: #fff;
+}
+.test table td{
+  word-break: break-all;
+}
+.srv_name{
+  width: 30%;
+}
+.current{
+  width:15%;
+}
+@media (max-width: 760px) {
+  .test table thead {
+    display: none;
+  }
+  .srv_name{
+    width:100%;
+  }
+  .current{
+    width:100%;
+  }
+  .test table tr {
+
+    display: block;
+
+  }
+  tr:nth-child(even){
+    background-color: #f0f4c3
+  }
+  .test table td {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    word-break: break-all;
+  }
+  .test table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 20px;
+  }
+  .test table input{
+    width: 50%;
+  }
+}

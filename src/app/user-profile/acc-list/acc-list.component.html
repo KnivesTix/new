@@ -1,0 +1,183 @@
+<div  class="d-flex flex-column justify-content-between">
+
+  <div class="test outlet flex-wrap flex-fill">
+    <div  *ngIf="!userAccArray">
+      <strong><span>Уважаемый пользователь! Для продолжения работы Вам необходимо добавить лицевой счет.<br><br> Обращаем внимание, что Вы можете добавить несколько лицевых счетов!</span></strong>
+    </div>
+
+    <table *ngIf="userAccArray" class="table table-hover text-center table-bordered">
+      <thead>
+      <tr>
+
+        <th scope="col">Лицевой счет</th>
+        <th scope="col">Адрес</th>
+       <th scope="col">Сумма к оплате*</th>
+        <th scope="col"></th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr (click)="setAcc(doc.acc_id)" *ngFor="let doc of userAccArray">
+        <td data-label="Лицевой счет"><a (click)="setAcc(doc.acc_id)" routerLink="/profile-home/">{{doc.acc_id}}</a><img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></td>
+        <td data-label="Адрес">{{doc.address}}</td>
+        <td data-label="Сумма к оплате*">{{doc.sum_for_pay}}</td>
+        <td><button type="button" class="btn btn-outline-primary" (click)="setAcc(doc.acc_id)">Оплатить</button></td>
+      </tr>
+      </tbody>
+      * - сумма указана без показаниий приборов учета(ПУ)
+    </table>
+
+    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Добавить лицевой счет</button>
+    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target=".deleteAcc">Удалить лицевой счет</button>
+
+  </div>
+</div>
+
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="addAcc" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title" id="addAcc">Добавить лицевой счет</h4>
+
+          <alert></alert>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clear()">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form class="form" [formGroup]="addAccForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <div class="col">
+                <label>Логин</label>
+
+                <input readonly type="text" formControlName="login" class="form-control"/>
+                <div *ngIf="submitted && f.login.errors" class="invalid-feedback">
+
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col">
+                <label>Лицевой счет (укажите счет, который указан до скобок в квитанции ООО "ЕРКЦ")</label>
+
+                <input type="text" formControlName="acc_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.acc_id.errors }"/>
+                <div *ngIf="submitted && f.acc_id.errors" class="invalid-feedback">
+                  <div *ngIf="f.acc_id.errors.required">Введите л.сч.</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col">
+                <label>Код платежа</label>
+
+                <input type="text" formControlName="pay_id" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.pay_id.errors }"/>
+                <div *ngIf="submitted && f.pay_id.errors" class="invalid-feedback">
+                  <div *ngIf="f.pay_id.errors.required">Введите идентификатор платежа</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col">
+                <label>Признак фискального документа(ФП)</label>
+
+                <input type="text" formControlName="fiscal_sign" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.fiscal_sign.errors }"/>
+                <div *ngIf="submitted && f.fiscal_sign.errors" class="invalid-feedback">
+                  <div *ngIf="f.fiscal_sign.errors.required">Введите признак фискального документа</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col">
+                <button [disabled]="loading" class="btn btn-primary">Добавить</button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                <!--<a id="help" tabindex="0" class="btn pl-2"  data-container="body" role="button"  data-html="true" data-toggle="popover" data-placement="right" data-content="<img src='./../assets/img/order.png' width=380/>" >
+
+                  Где найти эти данные?
+                </a>
+                -->
+                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target=".order">Где найти эти данные?</button>
+
+
+              </div>
+
+            </div>
+
+          </form>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="modal fade order" tabindex="-1" role="dialog" aria-labelledby="order" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+
+
+      <div class="modal-body">
+        <img src='./../assets/img/order.png'  width=380/>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <div class="modal fade deleteAcc" tabindex="-1" role="dialog" aria-labelledby="deleteAcc" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title" id="deleteAcc">Удалить лицевой счет</h4>
+          <alert></alert>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clear()">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form class="form" [formGroup]="deleteAccForm" (ngSubmit)="deleteAcc()">
+
+            <div class="form-group">
+              <div class="col">
+                <label>Логин</label>
+
+                <input readonly type="text" formControlName="login" class="form-control"/>
+                <div *ngIf="submitted && form.login.errors" class="invalid-feedback">
+
+                </div>
+              </div>
+              <div class="col">
+                <label>Введите лицевой счет</label>
+
+                <input type="text" formControlName="acc_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.acc_id.errors }"/>
+                <div *ngIf="submitted && form.acc_id.errors" class="invalid-feedback">
+                  <div *ngIf="form.acc_id.errors.required">Введите л.сч.</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col">
+                <button [disabled]="loading" class="btn btn-primary">Удалить</button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              </div>
+
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

@@ -1,0 +1,22 @@
+<div class="col-4" *ngFor="let doc of paramArray">
+    <label>Жильцов</label>
+    <input readonly class="form-control" type="text" value="{{doc.tenants}}"/>
+    <label>Общая площадь</label>
+    <input  readonly class="form-control" type="text" value="{{doc.area_general}}"/>
+    <label>Жилая площадь</label>
+    <input  readonly class="form-control" type="text" value="{{doc.area_residential}}"/>
+    <label>Отапливаемая площадь</label>
+    <input  readonly class="form-control" type="text" value="{{doc.area_heated}}"/>
+    <label>Вид собственности</label>
+    <input  readonly class="form-control" type="text" value="{{doc.property}}"/>
+    <label>Приватизация</label>
+    <input  readonly class="form-control" type="text" value="{{doc.privatization}}"/>
+    <label>Коммунальность</label>
+    <input  readonly class="form-control" type="text" value="{{doc.communal}}"/>
+    <label>Тип жилья</label>
+    <input  readonly class="form-control" type="text" value="{{doc.type_habitation}}"/>
+    <label>ТО домофонов</label>
+    <input readonly  class="form-control" type="text" value="{{doc.intercom}}"/>
+    <label>ТО шлагбаума</label>
+    <input  readonly class="form-control" type="text" value="{{doc.lifting_barrier}}"/>
+  </div>

@@ -1,0 +1,168 @@
+/*.container{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+header{
+  display:flex;
+  height: 4.375rem;
+  background: #3261af;
+  flex-direction:row;
+  align-content: center;
+  align-items: center;
+}
+a.btn.login{
+  margin-left: auto;
+}
+.table td {
+  text-align: center;
+}
+
+h5{
+  color:white;
+}
+.btn{
+  color:white;
+}
+
+*/
+
+
+
+
+.header {
+  flex: 0 1 auto;
+ /* background:url(../assets/img/header-gradient.png) left bottom repeat-x;*/
+
+  align-items: center;
+/*  color: #fff;*/
+  justify-content: space-between;
+  /*padding: 0 1em;*/
+ /* background: #3261af ;*/
+  background: #fff;
+  padding-bottom: 1rem;
+}
+.btn {
+  color: #0056b3;
+  text-decoration: none;
+}
+.btn:hover {
+  text-decoration: underline;
+}
+.help{
+  margin-left: auto;
+
+}
+.login{
+  margin-left: 1em;
+}
+.registration {
+  margin-left: 1em;
+}
+
+.main{
+ /* background: url(../assets/img/body_bg.jpg) no-repeat center/cover;*/
+  border-top: 1px solid #0056b3;
+  /*height: 100%;*/
+  flex:1 1 auto;
+}
+
+.user{
+  color: #0075c0;
+}
+.logout{
+  background-color: #ba1f0b;
+  color: #fff;
+}
+ul li a{
+  color: #fff;
+  cursor: pointer;
+}
+ul li a:hover{
+  text-decoration-line: underline;
+}
+
+footer .footer__menu{
+  border-top: 1px solid #0056b3;
+  /*padding: 1rem;*/
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  font-size: .85em;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.logo{
+  width: 120px;
+}
+.logo a{
+  text-decoration: none;
+}
+footer a {
+  text-decoration: none;
+  color: #333;
+  padding: 0.5em;
+}
+
+.sber_banner{
+  width: 50%;
+}
+/*
+img {
+  max-width: 100%;
+  height: auto;
+}*/
+
+.footer span{
+  font-size: 0.75rem;
+}
+
+.info{
+  font-size: 0.8rem;
+}
+
+@media (max-width: 760px) {
+  .help{
+    margin-left: 0;
+
+  }
+  .login{
+    margin-left: 0;
+  }
+  .registration {
+    margin-left: 0;
+  }
+  .service_button{
+    flex-direction: column;
+    align-items: center;
+  }
+  footer .footer__menu{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  footer a {
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    padding: 0.5rem;
+
+    align-items: center;
+  }
+  .info{
+
+  }
+}
+
+
+
+

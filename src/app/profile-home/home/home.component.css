@@ -1,0 +1,25 @@
+.form{
+  min-width: 100%;
+}
+
+.row{
+  display: -ms-flexbox;
+}
+
+.info{
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+  }
+  .btn {
+    align-items: center;
+  }
+
+}

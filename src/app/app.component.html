@@ -1,0 +1,94 @@
+
+<header class="header d-flex container">
+  <!--<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom shadow-sm">-->
+ <!-- <div class="navbar-brand">
+  <img src="./../assets/img/logo.png" width="5%" alt="">
+  <h6>Общество с ограниченной ответственностью</h6>
+  <br>
+  <h4>"Единый расчетно-кассовый центр"</h4>
+  <br>
+  <h4>г.Пятигорск</h4>-->
+  <!--<h3 class="navbar-brand">ООО "Единый расчетно-кассовый центр"</h3>-->
+  <!--</div>-->
+  <div class="logo">
+    <a href="https://pyatigorsk.org/" target="_blank">
+      <img src="./../assets/img/logo.png" class="img-fluid" >
+    </a>
+  </div>
+  <div class="col-md-4" style="color:#3261af">
+    <a href="http://www.erkc-kmv.ru">
+      <h1 style="display: none">Оплатить онлайн еркц пятигорск</h1>
+    <h6 style="font-size: 12px;" align="center">Общество с ограниченной ответственностью<br></h6>
+    <h4 style="font-size: 18px;" align="center">"Единый расчетно-кассовый центр"<br></h4>
+    <h4 style="font-size: 18px;" align="center">г.Пятигорск</h4>
+    </a>
+  </div>
+
+
+  <a class="btn help" href="#" data-toggle="modal" data-target=".helpUser">Помощь</a>
+<div *ngIf="currentUser" class="help d-flex flex-column">
+  <span *ngIf="isAdmin"><a routerLink="./admin">Admin</a></span>
+
+  <span class="flex-row">Логин: <a class="btn user" href="/user-profile/">{{currentUser}}</a></span>
+  <span *ngIf="currentAcc">Лицевой счет: <a  class="btn acc" href="/user-profile/">{{currentAcc}}</a></span>
+
+  <a *ngIf="currentUser" class="btn logout" href="#" (click)="logout()">Выход</a>
+</div>
+  <div class="service_button">
+
+  <a *ngIf="!currentUser" class="btn login" href="#" routerLink="/login">Вход</a>
+  <a *ngIf="!currentUser" class="btn registration" href="#" routerLink="/registration">Регистрация</a>
+  </div>
+</header>
+
+
+  <div class="modal fade helpUser" tabindex="-1" role="dialog" aria-labelledby="helpUser" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+
+        <div class="modal-header">
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-header">
+          <span><strong>Режим работы поддержки: Вт-Сб с 8 до 17 часов.</strong></span>
+        </div>
+        <div class="modal-body">
+
+          <p>Если у Вас возникли вопросы <strong>по работе сайта</strong>, Вы можете обратиться к нам по телефонам: <br><b>8(928)828-18-72</b><br> <b>8(928)821-30-94</b><br> или написать на электронную почту: <br><b>erkc-pay@kmv.ru</b></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="main d-flex flex-column">
+  <alert></alert>
+  <router-outlet></router-outlet>
+</div>
+
+<footer>
+
+<div class="footer__menu">
+
+      <a href="/site-info#instructions" fragment="instructions" target="_blank"><strong>Инструкции</strong></a>
+      <!-- <a href="/acc-payment" target="_blank"><strong>Оплатить</strong></a>-->
+
+      <a  href="/site-info#contacts" fragment="contacts" target="_blank">Контакты</a>
+
+      <a href="/site-info#scope" fragment="scope" target="_blank">Сфера деятельности</a>
+      <a href="/site-info#payment" fragment="payment" target="_blank">Способы оплаты</a>
+      <a href="/site-info#policy" fragment="policy" target="_blank">Политика конфиденциальности и пользовательское соглашение</a>
+      <a href="/cnt-declared"  target="_blank">Заявить показания приборов учета</a>
+      <a href="/site-info#data_transfer" fragment="data_transfer" target="_blank">Передача данных</a>
+      <!--<a href="../assets/doc/pay_online_sber.pdf" class="sber_banner" target="_blank"><img src="../assets/img/sber_banner.jpg"></a>-->
+
+
+</div>
+  <div class="info">
+    <span>Общество с ограниченной ответственностью "Единый расчетно-кассовый центр"</span>
+  </div>
+</footer>

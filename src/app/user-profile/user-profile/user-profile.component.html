@@ -1,0 +1,61 @@
+<!--<div class="row">
+
+  <button type="button" class="btn btn-outline-primary" routerLink="/profile-home/">Лицевые счета</button>
+</div>
+-->
+<!--
+<form class="form" [formGroup]="accForm" (ngSubmit)="getAcc()">
+
+  <div class="form-group">
+    <div class="col">
+      <label>Лицевой счет</label>
+      <input type="text" formControlName="acc_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.acc_id.errors }"/>
+      <div *ngIf="submitted && form.acc_id.errors" class="invalid-feedback">
+        <div *ngIf="form.acc_id.errors.required">Введите л.сч.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col">
+      <button [disabled]="loading" class="btn btn-primary btn-outline-primary">Поиск</button>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+    </div>
+  </div>
+</form>
+-->
+<div class="d-flex flex-row justify-content-between overflow-hidden">
+  <nav class="navbar-expand-md navbar-light" role="navigation">
+    <button class="navbar-toggler" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class=" flex-column justify-content-between flex-wrap collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/user-profile/">Коммунальные платежи</a>
+    </li>
+   <!-- <li class="nav-item">
+      <a class="nav-link"  routerLink="/user-profile/">Городские телефоны</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"  routerLink="/user-profile/">Учебные заведения</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/user-profile/">Прочие услуги</a>
+    </li>
+    -->
+    <li class="nav-item">
+
+      <a class="nav-link" routerLink="/user-profile/settings">Настройки профиля</a>
+    </li>
+
+
+
+  </ul>
+
+  </div>
+  </nav>
+<router-outlet></router-outlet>
+</div>

@@ -1,0 +1,15 @@
+.form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+}
+.btn {
+  background: #0056b3;
+  border-color: #0056b3;
+}
+.alert-danger{
+  font-size: 12px!important;
+}

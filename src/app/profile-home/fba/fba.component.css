@@ -1,0 +1,63 @@
+.btn-primary{
+  background: #0056b3;
+  border-color: #0056b3;
+  color: #fff;
+}
+
+.test {
+  min-width: 320px;
+  max-width: 100%;
+}
+/*.btn{
+  font-size: 0.85rem;
+}
+*/
+.table-sup{
+ font-size: 12px;
+}
+ /*.table-srv{
+   font-size: 12px;
+ }
+ .table-srv tr th{
+   font-size: 0.85rem;
+ }
+ */
+ .table-srv input{
+   font-size: 14px;
+ }
+/*
+  table td {
+    padding: .5em;
+    font-size: 12px;
+    word-break: break-all;
+  }
+*/
+@media (max-width: 760px) {
+  .table-sup{
+    display:none;
+  }
+  tr:nth-child(even){
+    background-color: #f0f4c3
+  }
+  .test table thead {
+    display: none;
+  }
+  .test table tr {
+    border-bottom: 2px solid #e8e9eb;
+    display: block;
+
+  }
+  .test table td {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+  .test table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 20px;
+  }
+  .test table input{
+    width: 50%;
+  }
+}

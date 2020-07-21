@@ -1,0 +1,31 @@
+.payment{
+  margin-top: 50px;
+}
+
+.af{
+  color: #ba1f0b;
+}
+
+.input-group label{
+
+  height: 100%;
+}
+.payment_info p{
+  font-size: 12px;
+}
+@media (max-width: 760px) {
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+  }
+  .btn {
+    align-items: center;
+  }
+  .input-group label{
+    font-size: 0.85rem;
+  }
+
+}

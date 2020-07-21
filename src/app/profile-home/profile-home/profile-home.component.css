@@ -1,0 +1,50 @@
+/*.row{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.menu{
+  display: flex;
+  flex-direction: column;
+  flex:1;
+  align-content: space-between;
+}
+*/
+
+
+.navbar{
+
+  /*background: #fc0; */
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+  padding: 10px;
+
+  /*border: 1px solid #dddddd;*/
+  background:  #3261af;
+ /* background: #0056b3;*/
+}
+.navbar a{
+  /*border-bottom: 1px solid #e5eaee;/*/
+  /*color: #007bff;*/
+  color: #fff;
+  cursor: pointer;
+}
+.navbar a:hover{
+  color:#fff;
+  text-decoration: underline;
+}
+
+.outlet{
+  padding-top: 2rem;
+
+
+}
+
+.back{
+  margin:0 auto;
+  margin-bottom: 1em;
+  font-size: 1em;
+
+}
+

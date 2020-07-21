@@ -1,0 +1,270 @@
+<div class="container">
+
+
+    <div class="info">
+    <p>Внимание! В этом разделе Вы можете <strong>только заявить показания</strong> приборов учета.</p>
+    <p>Оплата производится через личный кабинет сайта, либо через сайт Сбербанк Онлайн. Подробнее в разделе "Инструкции".</p>
+    </div>
+
+  <form class="form"  [formGroup]="cntForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <div class="col-3">
+      <label>Лицевой счет</label>
+
+      <input type="text" formControlName="acc_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.acc_id.errors }"/>
+      <div *ngIf="submitted && f.acc_id.errors" class="invalid-feedback">
+        <div *ngIf="f.acc_id.errors.required">Введите лицевой счет</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col">
+      <button [disabled]="loading" class="btn btn-outline-primary">Найти ПУ</button>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+    </div>
+
+  </div>
+</form>
+<div *ngIf="!cnt">
+  <span>Приборы учета не найдены!</span>
+</div>
+<!--<div class="d-flex row">
+<!--<table class="table table-hover table-bordered table-responsive table-sm" *ngIf="cnt.length !=0" >
+  <thead class="text-center">
+  <tr>
+    <th scope="col">№</th>
+    <th scope="col">Ид. счетчика</th>
+    <th scope="col">Место установки</th>
+    <th scope="col">Наименование услуги</th>
+    <th scope="col">Наименование поставщика</th>
+    <th scope="col">Предыдущее</th>
+    <th scope="col">Объем</th>
+    <th scope="col">Текущее показание</th>
+    <th scope="col">Тариф</th>
+    <th scope="col">Коэф.</th>
+    <th scope="col">К оплате</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let doc of cnt">
+    <td>{{doc.cnt_no}}</td>
+    <td>{{doc.cnt_id}}</td>
+    <td>{{doc.pic_name}}</td>
+    <td>{{doc.srv_name}}</td>
+    <td >{{doc.sup_name}}</td>
+    <td>{{doc.val_prev}}</td>
+    <td>{{countQty(doc.val_cur, doc.val_prev)}}</td>
+    <td><input  class="form-control text-center" [(ngModel)]="doc.val_cur" type="number" min="0" (blur)="setSumPay(doc.val_cur, doc.val_prev)"
+                (change)="getSumPay(doc.val_cur, doc.val_last, doc.tariff)"></td>
+    <td>{{doc.tariff}}</td>
+    <td>{{doc.koefficient}}</td>
+    <td style="text-align: right">{{getSumPay(doc.val_cur, doc.val_prev, doc.tariff) | currency:'RUB':''}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="d-flex" *ngIf="cnt.length != 0">
+  <div>
+    <button [disabled]="loading" class="btn btn-primary"  (click)="getJsonCnt()">Внести</button>
+  </div>
+
+</div>
+</div>-->
+  <!-- Возможно лучше сделать ввод счетчиков через форму, а не прямо в таблице -->
+  <div *ngIf="cnt.length != 0" class="d-flex flex-column">
+    <div  class="test">
+      <!--<table class="table table-hover table-bordered table-responsive table-sm " >-->
+      <table class="table table-hover table-bordered table-responsive table-sm table-srv" cellspacing="0" width="auto">
+        <thead class="text-center">
+        <tr>
+          <th scope="col" class="srv_name" rowspan="2">Наименование услуги</th>
+          <th scope="col" rowspan="2">Установлен</th>
+          <th colspan="3">Показания для расчета</th>
+      <!--    <th scope="col" rowspan="2">Тариф</th>
+          <th scope="col" rowspan="2">Кф.</th>
+          <th scope="col" rowspan="2">Сумма</th>
+          <th scope="col" rowspan="2">Сумма АВ*</th>
+       -->
+          <th scope="col" rowspan="2">К оплате</th>
+        </tr>
+
+        <tr>
+          <th scope="col">Предыдущее</th>
+          <th scope="col" class="current">Текущее</th>
+          <th scope="col">Объем</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr *ngFor="let doc of cnt">
+
+          <!--<td data-label="№">{{doc.cnt_no}}</td>-->
+          <td data-label="Наименование услуги" class="srv_name">{{doc.srv_name}}</td>
+          <td data-label="Место установки">{{doc.pic_name}}</td>
+
+          <!--<td data-label="Наименование поставщика">{{doc.sup_name}}</td>-->
+          <td data-label="Предыдущее">{{doc.val_prev}}</td>
+          <td data-label="Текущее показание" class="current"><input class="form-control text-center" [(ngModel)]="doc.val_cur"  pattern="[0-9]+([\.][0-9]{3})?"
+                                                                    type="number" min="doc.val_last" (change)="countSumPay(doc)"></td>
+
+          <td data-label="Объем">{{countQty(doc.val_cur, doc.val_prev)}}</td>
+          <!--<td>{{doc.val_last}}</td>-->
+          <!--(blur)="checkNewVal(doc.val_cur, doc.val_prev)"-->
+
+
+          <!--<td>{{doc.val_last - doc.val_prev}}</td>-->
+          <!-- <td><input [(ngModel)]="doc.val_last" type="number" class="text-center"
+                      (change)="getSumPay(doc.val_last, doc.val_prev, doc.tariff)"></td>-->
+          <!-- <td>{{doc.val_last}}</td> -->
+         <!-- <td data-label="Тариф">{{doc.tariff}}</td>
+          <td data-label="Коэф.">{{doc.koefficient}}</td>
+
+          <td data-label="Сумма" style="text-align: right">{{countSumPay(doc) | currency:'RUB':''}}</td>
+          <td>{{doc.sum_af}}</td>
+          -->
+          <td>{{doc.sum_total}}</td>
+          <!--  <td data-label="Сумма АВ*" style="text-align: right">{{countAF(doc) | currency:'RUB':''}}</td>
+            <td data-label="К оплате" style="text-align: right">{{countTotal(doc) | currency:'RUB':''}}</td>
+            <!--{{getSumPay(cnt[index].val_last, cnt[index].val_prev, cnt[index].tariff) | currency:'RUB':''}}-->
+        </tr>
+        </tbody>
+        *АВ - агентское вознаграждение
+
+      </table>
+    </div>
+    <div class="d-flex">
+      <div>
+        <button [disabled]="loading" class="btn btn-primary" (click)="getJsonCnt()" [disabled]="isLoaded">Внести</button>
+
+        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+      </div>
+      <button class="btn btn-outline-primary" data-toggle="modal" data-target=".total" (click)="getNewCnt()">К оплате в Сбербанк Онлайн</button>
+      <button class="btn btn-outline-primary reset" type="button" (click)="resetCntValue()" [disabled]="isLoaded">Сброс показаний</button>
+      <button [disabled]="loading" class="btn btn-primary" (click)="getDeclaredCnt()" [disabled]="isLoaded">Заявленные</button>
+    </div>
+
+  </div>
+ <!-- <div *ngIf="cnt.length != 0" class="test">
+    <div class="card mb-4 mt-4">
+
+      <div class="card-body">
+
+        <div class="modal-body test">
+          <table class="table table-hover table-bordered table-responsive table-sm">
+            <thead class="text-center">
+            <tr>
+              <th scope="col">Наименование услуги</th>
+              <th scope="col">Место установки</th>
+              <th scope="col">Предыдущее</th>
+              <th scope="col">Текущее показание</th>
+              <th scope="col">Объем</th>
+              <th scope="col">Тариф</th>
+              <th scope="col">Сумма</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let doc of cnt">
+
+              <td data-label="Наименование услуги" >{{doc.srv_name}}</td>
+              <td  data-label="Место установки" >{{doc.pic_name}}</td>
+
+              <td data-label="Предыдущее" >{{doc.val_prev}}</td>
+
+              <td data-label="Текущее показание" ><input class="text-center" [(ngModel)]="doc.val_cur" type="number" min="0" (blur)="setSumPay(doc.val_cur, doc.val_prev)"
+                                                         (change)="getSumPay(doc.val_cur, doc.val_last, doc.tariff)"></td>
+              <td>{{countQty(doc.val_cur, doc.val_prev)}}</td>
+              <td  data-label="Место установки" >{{doc.tariff}}</td>
+              <td data-label="Сумма" style="text-align: right">{{getSumPay(doc.val_cur, doc.val_prev, doc.tariff) | currency:'RUB':''}}</td>
+
+            </tr>
+            </tbody>
+          </table>
+          <div class="d-flex btn_group justify-content-between" *ngIf="cnt.length != 0">
+
+            <button [disabled]="loading" class="btn btn-primary" (click)="getJsonCnt()">Заявить</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <button type="button" [disabled]="loading" class=" btn" rel="noopener noreferrer" (click)="resetAll()">Сброс</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+    <table class="table table-white table-hover table-bordered table-responsive table-sm ">
+      <thead class="text-center">
+      <tr>
+        <th scope="col">Ид. счетчика</th>
+        <th scope="col">Место установки</th>
+        <th scope="col">Наименование услуги</th>
+        <th scope="col">Заявленное показание</th>
+        <th scope="col">Объем</th>
+        <th scope="col">К оплате</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let doc of cntDeclared">
+        <td>{{doc.cnt_id}}</td>
+        <td>{{doc.pic_name}}</td>
+        <td>{{doc.srv_name}}</td>
+        <td>{{doc.declared_value}}</td>
+        <td>{{doc.qty}}</td>
+        <td>{{doc.sum_pay}}</td>
+
+      </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+
+
+
+-->
+  <div class="modal fade total" tabindex="-1" role="dialog" aria-labelledby="total" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-md">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title" id="addCnt">Приборы учета</h4>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body test">
+          <table class="table table-hover table-bordered table-responsive table-sm">
+            <thead class="text-center">
+            <tr>
+
+
+              <th scope="col">Услуга</th>
+              <th scope="col">Поставщик</th>
+              <th scope="col">К оплате</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let doc of newCnt">
+
+              <td data-label="Наименование услуги" >{{doc.srv_name}}</td>
+              <td data-label="Наименование услуги" >{{doc.sup_name}}</td>
+
+              <td data-label="К оплате" style="text-align: right">{{doc.sum_total}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <!--<div class="d-flex btn_group justify-content-between" *ngIf="cnt.length != 0">
+
+            <button [disabled]="loading" class="btn btn-primary" (click)="getJsonCnt()">Заявить</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <button type="button" [disabled]="loading" class=" btn" rel="noopener noreferrer" (click)="resetAll()">Сброс</button>
+
+          </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+

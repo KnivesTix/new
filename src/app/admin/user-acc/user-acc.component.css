@@ -1,0 +1,46 @@
+/*table {
+  border-collapse: collapse;
+  border: 1px solid grey;
+  width: 990px;
+}
+thead th {
+  border: 1px solid black;
+  padding: 10px;
+}*/
+thead th {
+
+  padding: 10px;
+}
+td {
+
+  padding: 5px;
+}
+table td {
+  padding: .75em !important;
+  vertical-align: top;
+}
+/*tbody td {
+  text-align: center;
+  border: 1px solid black;
+}
+tfoot th {
+  text-align: right;
+}*/
+/*
+.form {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+*/
+section {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  margin-top: 1.5em;
+}/*
+.form-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}*/

@@ -1,0 +1,147 @@
+<!--<div class="col-sm-13" align="justify"><a routerLink="acquire" routerLinkActive="active" >
+    <img src="http://sgrc.ru/upload/medialibrary/548/54833ff357c7d90fc8c4683939834ce4.jpg" title="Эквайринг" border="0" alt="Ekvayering" ></a>
+</div>
+-->
+<!--<div class="col-sm-13 d-flex justify-content-between" align="justify"><a href="https://online.sberbank.ru/CSAFront/index.do" target="_blank">
+
+
+  <img src="http://sgrc.ru/upload/medialibrary/e9c/e9c6dc0b3b49393b5c2214a50acf48bc.jpg" title="Сбербанк Онлайн" border="0" alt="Сбербанк Онлайн" width="171" height="64"> </a>
+  <a href="../../../assets/doc/payBySberbankOnline.pdf" target="_blank">Инструкция по оплате через сайт Сбербанк Онлайн</a><br>
+  <div class="d-flex justify-content-end">
+    <a href="../../../assets/doc/instructions_erkc.pdf" target="_blank">Инструкция по работе на сайте ООО "ЕРКЦ"</a>
+  </div>
+</div>-->
+
+<!--<tr>
+    <td>
+    <div class="row">
+      <div class="col-sm-13" align="justify"><a href="https://online.sberbank.ru/CSAFront/index.do" target="_blank"><img src="http://sgrc.ru/upload/medialibrary/e9c/e9c6dc0b3b49393b5c2214a50acf48bc.jpg" title="Сбербанк Онлайн" border="0" alt="Сбербанк Онлайн" width="171" height="64"> </a></div>
+    </div>
+  </td>
+
+    <td>
+
+  </td>
+  </tr>-->
+
+<!--  <tr> <td>-->
+ <!--   <div class="col-sm-13" align="justify"><a href="http://www.psbst.ru/" target="_blank"><img src="http://sgrc.ru/upload/medialibrary/1c9/1c9e63c1964d50858fcdc401edcb2a2f.jpg" title="Ставропольпромстройбанк" border="0" alt="Prom" width="455" height="64"> </a></div>-->
+ <!-- </td> <td>-->
+    <!--<div class="col-sn-35">
+      <ul>
+        <li><span><span><a href="#" target="_blank">Инструкция по оплате</a></span></span></li>
+
+        <br>
+      </ul>
+    </div>-->
+ <!-- </td> </tr>
+  </tbody>
+</table>
+-->
+
+<!--<router-outlet></router-outlet>-->
+  <div class="payment">
+  <!--  <h5>
+      Уважаемый Абонент! Раздел находится на стадии разработки! Вы можете оплатить с помощью приложения "Сбербанк".
+    </h5>
+     <span> Для этого необходимо:
+      <ol>
+        <li>Перейти на вкладку "Приборы учета" ввести показания.</li>
+        <li>Перейти на вкладку "Начисления" и нажать на кнопку "QR-код для оплаты".</li>
+        <li>Открыть мобильное приложение Сбербанк Онлайн, выбрать «Платежи» и далее — «Оплата по QR или штрих коду».</li><br>
+      <img src="../../../assets/img/IMG_3203.png" width="200"/>
+      <br>
+        <li>Навести камеру телефона на QR-код в открывшем на сайте документе.</li>
+      </ol>
+      </span>
+      -->
+  <!--  <h5>
+      Уважаемый Абонент! Раздел находится на стадии разработки! Вы можете оплатить с помощью приложения "Сбербанк" или на сайте Сбербанк Онлайн.
+    </h5>
+    <span> Для этого необходимо:
+      <ol>
+        <li>Перейти на вкладку "Приборы учета" ввести показания.</li>
+        <li>Перейти на вкладку "Начисления" и нажать на кнопку "Информационный документ для оплаты".</li>
+        <li>Проверить начисления и показания приборов учета.</li>
+        <li>Открыть мобильное приложение Сбербанк Онлайн, выбрать «Платежи» и далее — «Оплата по QR или штрих коду».</li>
+
+
+        <li>Навести камеру телефона на QR-код в открывшем на сайте документе.</li>
+        <br>
+         <li>Обращаем внимание, что данные на сайте обновляются только после поступления платежа в ООО "ЕРКЦ".
+        Так же, если Вы забыли ввести показания, а информационный документ/документ с QR-кодом уже сформированы,
+          то закройте все документы и повторите все действия начиная с первого пункта.</li>
+      </ol>
+      </span>
+-->
+   <!-- Здесь Вы можете оплатить коммунальные услуги
+      с помощью пластиковых карт.<br> Пожалуйста, проверьте параметры платежа.
+-->
+
+   <form [formGroup]="payForm" (ngSubmit)="onSubmit()" class="form d-flex flex-column">
+    <div class="input-group mb-3 col-lg-8 col-md-12">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+
+
+
+          <input formControlName="offer" type="checkbox" [ngClass]="{ 'is-invalid': submitted && f.offer }">
+          <div *ngIf="submitted && f.offer"  class="invalid-feedback">
+            <div *ngIf="f.offer.required">Необходимо подтвердить согласие с офертой</div>
+          </div>
+        </div>
+      </div>
+      <label type="text" class="form-control">Я принимаю условия <a href="../../../assets/doc/offer.pdf" target="_blank">оферты</a></label>
+    </div>
+
+      <div class="input-group mb-3 col-lg-8 col-md-12">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input formControlName="order" type="checkbox" [ngClass]="{ 'is-invalid': submitted && f.order }">
+            <div *ngIf="submitted && f.order"  class="invalid-feedback">
+              <div *ngIf="f.order.required">Необходимо подтвердить согласие</div>
+            </div>
+          </div>
+        </div>
+        <label type="text" class="af form-control">Комиссия банка составляет {{af}}</label>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-4 col-md-12">
+          <label>Лицевой счет</label>
+
+          <input formControlName="acc_id" type="text" [ngClass]="{ 'is-invalid': submitted && f.acc_id.errors }" readonly class="form-control" />
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-lg-4 col-md-12">
+          <label>Сумма</label>
+          <input *ngIf="isLoaded" formControlName="sum_pay" [ngClass]="{ 'is-invalid': submitted && f.sum_pay.errors }" class="form-control" readonly value="{{sum_pay_total}}">
+
+        </div>
+      </div>
+     <div class="form-group">
+       <div class="col-lg-4 col-md-12">
+         <label>Email</label>
+
+         <input type="email" formControlName="email" email readonly class="form-control" value="{{email}}"/>
+
+       </div>
+     </div>
+      <div class="form-group">
+        <div class="col-lg-3 col-md-12 d-flex flex-row">
+          <button class="btn btn-primary" [disabled]="payForm.invalid" [disabled]="!load_sbr_form">Оплатить</button>
+          <div><img *ngIf="load_sbr_form" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></div>
+
+        </div>
+
+      </div>
+    </form>
+<div class="payment_info">
+  <p>Для оплаты (ввода реквизитов Вашей карты) Вы будете перенаправлены на платёжный шлюз ПАО СБЕРБАНК. Соединение с платёжным шлюзом и передача информации осуществляется в защищённом режиме с использованием протокола шифрования SSL. В случае если Ваш банк поддерживает технологию безопасного проведения интернет-платежей Verified By Visa, MasterCard SecureCode, MIR Accept, J-Secure для проведения платежа также может потребоваться ввод специального пароля. Настоящий сайт поддерживает 256-битное шифрование. Конфиденциальность сообщаемой персональной информации обеспечивается ПАО СБЕРБАНК. Введённая информация не будет предоставлена третьим лицам за исключением случаев, предусмотренных законодательством РФ. Проведение платежей по банковским картам осуществляется в строгом соответствии с требованиями платёжных систем МИР, Visa Int., MasterCard Europe Sprl, JCB.</p>
+</div>
+  </div>
+
+

@@ -1,0 +1,92 @@
+<form class="form" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <div class="col">
+      <label>Логин</label>
+
+      <input type="text" formControlName="login" class="form-control"/>
+      <!--<div *ngIf="submitted && f.login.errors" class="invalid-feedback">
+        <div *ngIf="f.login.errors.required">Введите логин</div>
+      </div>
+      -->
+      <div *ngIf="f.login.invalid  && (f.login.dirty || f.login.touched)"
+           class="alert alert-danger ">
+        <div *ngIf="f.login.errors.required">
+          Введите логин.
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col">
+      <label>Email</label>
+
+      <input type="email" formControlName="email" email class="form-control"/>
+
+      <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)"
+           class="alert alert-danger">
+        <div *ngIf="f.email.errors.required">
+          Введите email.
+        </div>
+        <div *ngIf="f.email.errors.email">
+          Некорректный email.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col">
+      <label>Телефон</label>
+
+      <input type="text" aria-describedby="phoneHelpBlock" formControlName="phone"
+             appPhone
+             data-toggle="tooltip" data-placement="right" title="Номер телефона указывается без первой 8" class="form-control"/>
+      <small id="phoneHelpBlock" class="form-text text-muted">
+        Номер телефона указывается без 8
+      </small>
+      <!--<div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+        <div *ngIf="f.phone.errors.required">Введите телефон.</div>
+      </div>-->
+      <div *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)"
+           class="alert alert-danger">
+        <div *ngIf="f.phone.errors.required">
+          Введите телефон.
+        </div>
+        <div *ngIf="f.phone.errors.minlength">
+          Телефон должен быть не меньше 10 цифр
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col">
+      <label>Пароль</label>
+
+      <input type="password" formControlName="password" class="form-control"/>
+      <!--<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">Введите пароль</div>
+      </div>
+      -->
+      <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)"
+           class="alert alert-danger">
+        <div *ngIf="f.password.errors.required">
+          Введите пароль.
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col">
+      <button [disabled]="loading" class="btn btn-primary">Зарегистрироваться</button>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+    </div>
+    <span>Уже зарегистрированы? <a href="#" routerLink="/login">Войти</a></span>
+  </div>
+
+
+</form>

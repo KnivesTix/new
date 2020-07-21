@@ -1,0 +1,37 @@
+<div *ngIf="!updArray">
+  <div>Для лицевого счета <span class="acc_id"> {{currentAcc}} </span>нет платежных документов.</div>
+</div>
+
+<div *ngIf="updArray">
+    <table class="table table-hover text-center table-bordered">
+      <thead class="text-center">
+      <tr>
+        <th scope="col">Год</th>
+        <th scope="col">Месяц</th>
+        <th scope="col">Номер документа</th>
+        <th scope="col">Номер документа ГИС ЖКХ</th>
+        <th scope="col">Сумма к оплате</th>
+        <th scope="col">Платежный документ</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr *ngFor="let doc of updArray">
+        <td>{{doc.year}}</td>
+        <td>{{doc.month}}</td>
+        <td>{{doc.doc_id}}</td>
+        <td >{{doc.doc_no}}</td>
+        <td>{{doc.doc_sum}}</td>
+        <!--<td><a href="http://www.erkc-pay.ru:3010/upd/pdf/{{currentAcc}}/{{doc.doc_id}}" rel='noopener' target="_blank">{{doc.doc_id}}.pdf</a></td>-->
+        <td><a href="http://10.170.8.4:3010/upd/pdf/{{currentAcc}}/{{doc.doc_id}}" rel='noopener' target="_blank">{{doc.doc_id}}.pdf</a></td>
+
+        <td><button class="btn btn-outline-primary" routerLink="../payment" routerLinkActive="active">Оплатить</button></td>
+
+      </tr>
+      </tbody>
+    </table>
+</div>
+
+
+

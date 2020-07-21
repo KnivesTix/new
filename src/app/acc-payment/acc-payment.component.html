@@ -1,0 +1,205 @@
+<div class="container">
+<div class="info">
+  <ol>
+    <li>Введите номер лицевого счета.</li>
+    <li>Скорректируйте данные платежа.</li>
+    <li>Выберите способ оплаты: по QR-коду или через сайт Сбербанк Онлайн.</li>
+    <li>В зависимости от выбора - сканируйте QR-код или укажите номер информационного документа в назначении платежа.</li>
+  </ol>
+  <!-- <p> * сумма к оплате указана без показаний приборов учета.
+     Если вы оплатите сумму меньше указанной, то она распределится
+     пропорционально суммам задолженности в соответствие с указаниями постановления 354 ФЗ
+   </p>
+-->
+</div>
+
+    <form  [formGroup]="accForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <div class="col-lg-3 col-sm-10">
+          <label>Лицевой счет</label>
+
+          <input type="text" formControlName="acc_id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.acc_id.errors }"/>
+          <div *ngIf="submitted && f.acc_id.errors" class="invalid-feedback">
+            <div *ngIf="f.acc_id.errors.required">Введите лицевой счет</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col">
+          <button [disabled]="loading" [disabled]="accForm.invalid" class="btn">Поиск</button>
+          <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+
+      </div>
+
+    </form>
+
+  <div *ngIf="fba.length == 0" class="test">
+    {{error}}
+  </div>
+  <div *ngIf="fba.length != 0" class="test">
+
+    <div class="card mb-4 mt-4">
+      <h4 class="card-header">Приборы учета</h4>
+      <div class="card-body">
+        <button type="button" [disabled]="loading" class="btn-outline-primary btn" rel="noopener noreferrer" data-toggle="modal" data-target=".addCnt" (click)="getCnt()">Внести показания приборов учета</button>
+      </div>
+    </div>
+    <div class="card mb-4 mt-4">
+      <h4 class="card-header d-flex justify-content-between">
+        <!--<span>К оплате - {{totalPay}}</span>-->
+        <!--<button type="button" [disabled]="loading" class="btn-outline-primary btn qr mr-1" rel="noopener noreferrer" (click)="formingQR()">QR-код</button>-->
+        <button type="button" [disabled]="loading" class="btn-outline-primary btn qr" rel="noopener noreferrer" (click)="resetAll()">Сброс введенных данных</button>
+      </h4>
+      <div class="card-body">
+  <table class="table table-hover table-responsive table-bordered table-sm" cellspacing="0" >
+    <thead class="text-center">
+    <tr>
+      <th scope="col">Поставщик</th>
+      <th scope="col">Услуга</th>
+      <th scope="col"></th>
+      <th scope="col">Платеж</th>
+      <th scope="col">Сумма АВ*</th>
+      <th scope="col">Итого</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let doc of fba;let index = index;trackBy:trackByIndex;">
+      <td data-label="Поставщик" class="sup">{{doc.sup_name}}</td>
+      <td data-label="Услуга" class="srv">{{doc.srv_name}}</td>
+      <td data-label="">{{doc.cnt_type}}</td>
+      <td data-label="Платеж" ><input  *ngIf="index != fba.length-1" min="0" type="number" step="0.01" lang="en" pattern="[0-9]+([\,][0-9]{2})?"  [disabled]="doc.cnt_type == 'C'"
+                                      class="form-control text-center" [(ngModel)]="doc.cur_pay" (change)="countCurPay(doc)"  (blur)="setSumPay(doc.sup_id, doc.srv_id, doc.cur_pay)">
+       <div *ngIf="index == fba.length-1" style="text-align: right">{{doc.cur_pay}}</div>
+      </td>
+      <td data-label="Сумма АВ*"  style="text-align: right">
+        <!--[(ngModel)]="doc.sum_af"-->
+        <input readonly [disabled] *ngIf="index != fba.length-1" type="text"
+               class="form-control text-center" [(ngModel)]="doc.sum_af" >
+        <div *ngIf="index == fba.length-1" style="text-align: right"> {{doc.sum_af}}</div>
+      </td>
+      <!--<td data-label="Сумма АВ*"  style="text-align: right">
+
+        <input readonly [disabled] *ngIf="index != fba.length-1" type="text"
+               class="form-control text-center" [(ngModel)]="doc.sum_af"
+               value="{{countAF(doc.cur_pay, doc.percent_af) | currency:'RUB':''}}">
+        <div *ngIf="index == fba.length-1" style="text-align: right"> {{totalAF | currency:'RUB':''}}</div>
+      </td>-->
+      <td data-label="Итого" style="text-align: right">
+        <input readonly *ngIf="index != fba.length-1" [disabled] [(ngModel)]="doc.sum_for_pay_total"
+               type="text" class="form-control text-center">
+        <div *ngIf="index == fba.length-1" style="text-align: right"> {{doc.sum_for_pay_total}}</div>
+      </td>
+     <!-- <td data-label="Итого" style="text-align: right">
+        <input readonly [disabled] *ngIf="index != fba.length-1" [(ngModel)]="doc.sum_for_pay_total"
+               type="text" class="form-control text-center" value="{{countTotal(doc.cur_pay) | currency:'RUB':''}}">
+        <div *ngIf="index == fba.length-1" style="text-align: right"> {{totalPay | currency:'RUB':''}}</div>
+      </td>-->
+    </tr>
+    </tbody>
+    <span style="font-size:12px">*АВ - агентское вознаграждение</span>
+  </table>
+      </div>
+      <div *ngIf="accArray">
+        <!--<div class="form-group">
+          <div class="col-6">
+          <label>Адрес</label>
+
+            <input class="form-control" readonly  type="text" value="{{accArray[1]}}">
+
+          </div>
+        </div>-->
+        <div class="form-group">
+          <div class="col-lg-4 col-sm-12">
+            <label><strong>Сумма к оплате*</strong></label>
+            <input class="sum_for_pay form-control" readonly type="text" value="{{totalPay | currency:'RUB':''}}">
+
+          </div>
+        </div>
+        <div *ngIf="docId !=0">
+          <div class="form-group">
+            <div class="col-lg-4 col-sm-12">
+              <label><strong>Номер информационного документа</strong></label>
+              <input class="sum_for_pay form-control" readonly type="text" value="{{docId }}">
+
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-5 col-sm-12">
+          <!-- <button type="button" [disabled]="loading" class="btn-outline-primary btn" rel="noopener noreferrer" (click)="sendQRData()">Номер инф. документа</button>-->
+
+          <button type="button" [disabled]="loading" class="btn-outline-primary btn mr-1" rel="noopener noreferrer" (click)="formingQR()">QR-код</button>
+            <button type="button" [disabled]="loading" class="btn-outline-primary btn mr-1" rel="noopener noreferrer" routerLink="/acquire" (click)="setTotalPay()">Оплата картой</button>
+
+
+          <!-- <button type="button" [disabled]="loading" class="btn-outline-primary btn" rel="noopener noreferrer" (click)="resetAll()">Сброс введенных данных</button>-->
+          <!--<div *ngIf="docId !=0">-->
+          <button type="button" class="btn" (click)="sendQRData()">Оплатить через Сбербанк</button>
+            <div *ngIf="docId !=0">
+              <button type="button" class="btn"><a href="https://online.sberbank.ru/CSAFront/index.do" target="_blank">Перейти на сайт Сбербанка</a></button>
+          </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="modal fade addCnt" tabindex="-1" role="dialog" aria-labelledby="addCnt" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-md">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title" id="addCnt">Приборы учета</h4>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body test">
+          <table class="table table-hover table-bordered table-responsive table-sm" *ngIf="cnt.length !=0" >
+            <thead class="text-center">
+            <tr>
+              <th scope="col">Ид. счетчика</th>
+              <th scope="col">Место установки</th>
+              <th scope="col">Наименование услуги</th>
+              <th scope="col">Предыдущее</th>
+              <th scope="col">Текущее показание</th>
+              <th scope="col">К оплате</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let doc of cnt">
+              <td  data-label="Ид. счетчика">{{doc.cnt_id}}</td>
+              <td  data-label="Место установки" >{{doc.pic_name}}</td>
+              <td data-label="Наименование услуги" >{{doc.srv_name}}</td>
+              <td data-label="Предыдущее" >{{doc.val_prev}}</td>
+              <!--<td>{{countQty(doc.val_cur, doc.val_prev)}}</td>-->
+              <td data-label="Текущее показание" ><input class="text-center" [(ngModel)]="doc.val_cur" type="number" min="0" (blur)="setSumPay(doc.val_cur, doc.val_prev)"
+                          (change)="getSumPay(doc.val_cur, doc.val_last, doc.tariff)"></td>
+              <td data-label="К оплате" style="text-align: right">{{getSumPay(doc.val_cur, doc.val_prev, doc.tariff) | currency:'RUB':''}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="d-flex btn_group justify-content-between" *ngIf="cnt.length != 0">
+
+              <button [disabled]="loading" class="btn btn-primary" (click)="getJsonCnt()" >Внести</button>
+              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+              <button type="button" [disabled]="loading" class=" btn" rel="noopener noreferrer" (click)="resetAll()">Сброс</button>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+

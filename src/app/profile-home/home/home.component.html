@@ -1,0 +1,33 @@
+
+<form class="form d-flex justify-content-center align-items-center flex-column">
+  <div>
+  <div class="form-group">
+    <label class="col">Лицевой счет</label>
+    <div class="col">
+      <input readonly class="form-control" type="text" value="{{currentAcc}}">
+    </div>
+  </div>
+    <div *ngIf="sumUpdArray" class="form-group ">
+      <label class="col">Сумма к оплате</label>
+      <div class="col">
+        <input class="form-control" readonly  type="text" value="{{totalPay}}">
+      </div>
+    </div>
+
+  </div>
+  <div class="form-group">
+    <button type="button" class="form-group btn btn-outline-primary" [disabled]="isLoaded" routerLink="/profile-home/cnt">Внести показания ПУ</button>
+
+    <button [disabled]="isLoaded" type="button" class="form-group btn btn-outline-primary " routerLink="/profile-home/payment" (click)="setTotalPay()">Оплатить картой</button>
+
+    <img class="form-group" *ngIf="isLoaded" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+
+    <button type="button" class=" form-group btn btn-outline-primary" [disabled]="isLoaded" routerLink="/profile-home/fba">Изменить сумму</button>
+
+  </div>
+  <span class="info">
+*Обращаем внимание, что данные о платеже в ООО "ЕРКЦ" поступают в течение 3-5 банковских дней.
+    </span>
+
+</form>

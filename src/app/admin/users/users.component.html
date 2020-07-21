@@ -1,0 +1,67 @@
+<section class="d-flex flex-column justify-content-between ">
+  <div class="fiscal">
+
+    <div class="form">
+      <input #acc_id type="text">
+      <button (click)="getAccInfo(acc_id.value)">Найти код платежа и ФП</button>
+    </div>
+    <table *ngIf="accInfo" class="table table-hover text-center table-bordered table-sm">
+
+      <thead>
+      <tr>
+        <th>Код платежа</th>
+        <th>ФП (фискальный признак)</th>
+      </tr>
+      </thead>
+      <tbody >
+      <tr *ngFor="let item of accInfo">
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <!--<td><button type="button" class="btn btn-outline-primary">Оплатить</button></td>-->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="user">
+    <div class="form">
+      <input #user type="text">
+      <button (click)="getUser(user.value)">Поиск</button>
+    </div>
+
+    <table class="table-hover text-center table-bordered">
+      <caption>inet.users - пользователи</caption>
+      <thead>
+      <tr>
+
+        <th>ID</th>
+        <th>LOGIN</th>
+
+        <th>EMAIL</th>
+        <th>PHONE</th>
+        <th>STATUS</th>
+
+        <th>DATE_UPDATE</th>
+      </tr>
+      </thead>
+      <tbody >
+      <tr *ngFor="let item of userFilter  | paginate: { itemsPerPage: count, currentPage: p } ">
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <td>{{item[2]}}</td>
+        <td>{{item[3]}}</td>
+        <td>{{item[4]}}</td>
+
+        <td>{{item[5] | date:'dd.MM.yyyy'}}</td>
+
+
+      </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p = $event"  autoHide = "true" previousLabel = "Назад"
+                         nextLabel = "Вперед"></pagination-controls>
+  </div>
+
+
+
+</section>

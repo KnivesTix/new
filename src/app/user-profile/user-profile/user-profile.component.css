@@ -1,0 +1,14 @@
+:host{
+  display: flex;
+ /* flex-wrap: wrap;*/
+  padding: 2em auto;
+  justify-content: center;
+  /*  justify-content: flex-start;*/
+  width: 100%;
+}
+tr a{text-decoration: underline}
+
+tr:hover{
+  cursor: pointer;
+}
+

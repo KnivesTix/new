@@ -1,0 +1,31 @@
+
+<div class="row">
+  <div *ngIf="!recalcArray">
+    <div>На лицевом счете <span class="acc_id"> {{currentAcc}} </span>не производилось перерасчетов.</div>
+  </div>
+
+
+  <table  *ngIf="recalcArray" class="table table-hover text-center table-bordered table-sm">
+    <thead class="text-center">
+    <tr>
+      <th scope="col">Период</th>
+      <th scope="col">Дата внесения изменения</th>
+      <th scope="col">Наименование услуги</th>
+      <th scope="col">Наименование поставщика</th>
+      <th scope="col">Сумма перерасчета</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let doc of recalcArray">
+      <td>{{doc.date_range}}</td>
+      <td>{{doc.date_change}}</td>
+      <td>{{doc.srv_name}}</td>
+      <td >{{doc.sup_name}}</td>
+      <td>{{doc.sum_change}}</td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
